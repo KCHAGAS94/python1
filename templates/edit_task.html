@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Tarefa</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f4f4f9; color: #333; padding: 20px; }
+        h1 { text-align: center; color: #444; }
+        .edit-form { max-width: 600px; margin: 0 auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .edit-form label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .edit-form input, .edit-form select, .edit-form textarea { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .edit-form button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-size: 1em; }
+        .edit-form a { display: inline-block; margin-top: 10px; color: #6c757d; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <h1>Editar Tarefa</h1>
+    <div class="edit-form">
+        <form action="{{ url_for('edit_task', task_id=task.id) }}" method="post">
+            <label for="title">Título:</label>
+            <input type="text" id="title" name="title" value="{{ task.title }}" required>
+
+            <label for="notes">Anotações:</label>
+            <textarea id="notes" name="notes" rows="4">{{ task.notes }}</textarea>
+
+            <label for="priority">Prioridade:</label>
+            <select id="priority" name="priority">
+                {% for p in priorities %}
+                <option value="{{ p }}" {% if p == task.priority %}selected{% endif %}>{{ p.capitalize() }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="column">Coluna:</label>
+            <select id="column" name="column">
+                {% for c in columns %}
+                <option value="{{ c }}" {% if c == task.column %}selected{% endif %}>{{ c }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="start_date">Início:</label>
+            <input type="date" id="start_date" name="start_date" value="{{ task.start_date }}">
+
+            <label for="end_date">Fim:</label>
+            <input type="date" id="end_date" name="end_date" value="{{ task.end_date }}">
+
+            <button type="submit">Salvar Alterações</button>
+        </form>
+        <a href="{{ url_for('index') }}">Cancelar</a>
+    </div>
+</body>
+</html>
