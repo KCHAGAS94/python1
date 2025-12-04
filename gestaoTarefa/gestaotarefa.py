@@ -2,7 +2,7 @@ import sqlite3
 from flask import Flask, render_template, request, redirect, url_for
 import os
 
-app = Flask(__name__, template_folder='../templates')
+app = Flask(__name__)
 
 # Define o caminho do banco de dados relativo ao local do script
 script_dir = os.path.dirname(os.path.abspath(__file__))
